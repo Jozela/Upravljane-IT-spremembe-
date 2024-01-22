@@ -9,7 +9,7 @@ Dobrodošli v mojem projektu za upravljanje dovoljenj! Ta spletna stran omogoča
 1. **Pridobitev kode:**
    - Klonirajte projekt na svoj lokalni računalnik s pomočjo ukaza:
      ```
-     git clone https://github.com/vaš-uporabniški-nadzor/moj-projekt.git
+     git clone [https://github.com/vaš-uporabniški-nadzor/moj-projekt.git](https://github.com/Jozela/Upravljane-IT-spremembe-.git)
      ```
 
 2. **Namestitev odvisnosti:**
