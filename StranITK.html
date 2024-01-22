@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.css">
+
+    <style>
+        #gdprConsentPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        #gdprConsentPopup p {
+            margin-bottom: 10px;
+        }
+
+        #gdprConsentPopup a {
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <img src="https://www.gov.si/resources/themes/gov/images/svg/logo_sl_SI.svg" alt="Logo" class="logo">
+    <h1>Prijava</h1>
+
+    <div id="gdprConsentPopup">
+        <p>Prosimo, sprejmite naše pogoje in izjavo o zasebnosti, da lahko nadaljujete.</p>
+        <p><a href="GDPR.html" target="_blank">Izjava o zasebnosti</a></p>
+        <button type="button" id="acceptGDPRConsent" class="button">Sprejmi</button>
+    </div>
+
+    <form id="loginForm">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="password">Geslo:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="button" id="showGDPRConsentPopup" class="button">Sprejmi pogoje</button>
+
+        <button type="button" id="prijava-button" class="button" disabled>Prijava</button> 
+        <button type="button" id="Ustvari" class="button">Ustvari račun</button> 
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.1/cookieconsent.min.js"></script>
+
+<script>
+    window.addEventListener("load", function(){
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#fff",
+                    "text": "#000"
+                },
+                "button": {
+                    "background": "#007BFF",
+                    "text": "#fff"
+                }
+            },
+            "content": {
+                "message": "Ta stran uporablja piskotke, tako zagotovimo najbolso uporabo strani.",
+                "dismiss": "Got it!",
+                "link": "Learn more",
+                "href": "Piskoti.html"
+            }
+        });
+    });
+
+    document.getElementById('showGDPRConsentPopup').onclick = function() {
+        document.getElementById('gdprConsentPopup').style.display = 'block';
+    };
+
+    document.getElementById('acceptGDPRConsent').onclick = function() {
+        document.getElementById('gdprConsentPopup').style.display = 'none';
+        document.getElementById('prijava-button').removeAttribute('disabled');
+    };
+
+    document.getElementById('prijava-button').onclick = function() {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+
+        if ((email === 'user1@example.com' && password === 'password1') ||
+            (email === 'user2@example.com' && password === 'password2')) {
+            var userEmail = document.getElementById('email').value;
+            localStorage.setItem('userEmail', userEmail);
+            window.location.href = 'Home.html?email=' + email;
+        } else {
+            alert('Neveljavno. Poskusite znova.');
+        }
+    };
+
+    document.getElementById('Ustvari').onclick = function() {
+        window.location.href = 'Ustvaraacuna.html';
+    };
+</script>
+
+</body>
+</html>

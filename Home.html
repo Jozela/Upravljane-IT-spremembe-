@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uvozno/Izvozno potrdilo za vojaško orožje</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="certificate-container">
+    <img src="https://www.gov.si/resources/themes/gov/images/svg/logo_sl_SI.svg" alt="Logo" class="logo">
+    <h1>Uvozno/Izvozno potrdilo za vojaško orožje</h1>
+    <div id="userStatus"></div>
+
+    <button type=button id="PodaljsanjeGumb" class="button">Podaljšanje dovoljenja</button> <br>
+    <button type="button" id="LogoutButton" class="button">Logout</button>
+
+</div>
+
+</body>
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var userEmail = localStorage.getItem('userEmail');
+        var allForms = JSON.parse(localStorage.getItem('allForms')) || [];
+
+        var userForms = allForms.filter(function (form) {
+            return form.submittedBy === userEmail;
+        });
+
+        if (userForms.length > 0) {
+            var message = document.createElement('p');
+            var status = userForms[0].status;
+            message.textContent = 'You have a submitted form with status: ' + status;
+            document.body.appendChild(message);
+        }
+    });
+
+
+    document.getElementById('PodaljsanjeGumb').onclick = function() {
+        window.location.href = 'Podaljsanje.html';
+    };
+    document.getElementById('LogoutButton').onclick = function() {
+        localStorage.removeItem('userEmail');
+
+        window.location.href = 'StranITK.html';
+    };
+    </script>

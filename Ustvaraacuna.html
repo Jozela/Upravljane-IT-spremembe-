@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ustvarjanje racuna</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .input-field {
+            margin: 10px 0;
+        }
+        .input-field label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-field input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .submit-button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://www.gov.si/resources/themes/gov/images/svg/logo_sl_SI.svg" alt="Logo" class="logo">
+    <h1>Ustvarjanje racuna</h1>
+    <form id="userForm">
+        <div class="input-field">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+        </div>
+        <div class="input-field">
+            <label for="ime">Ime:</label>
+            <input type="text" id="ime" name="ime">
+        </div>
+        <div class="input-field">
+            <label for="priimek">Priimek:</label>
+            <input type="text" id="priimek" name="priimek">
+        </div>
+        <div class="input-field">
+            <label for="naziv">Naziv:</label>
+            <input type="text" id="naziv" name="naziv">
+        </div>
+        <div class="input-field">
+            <label for="naslov">Naslov:</label>
+            <input type="text" id="naslov" name="naslov">
+        </div>
+        <div class="input-field">
+            <label for="maticna">Maticna stevilka:</label>
+            <input type="text" id="maticna" name="maticna">
+        </div>
+        
+        <input type="submit" id="UstvariButton" value="Ustvari" class="submit-button">
+    </form>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var formData = {
+                ime: document.getElementById('ime').value,
+                priimek: document.getElementById('priimek').value,
+                naziv: document.getElementById('naziv').value,
+                naslov: document.getElementById('naslov').value,
+                maticna: document.getElementById('maticna').value
+            };
+
+            localStorage.setItem('userData', JSON.stringify(formData));
+            localStorage.setItem('userEmail', formData.email);
+            window.location.href = 'Home.html';
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podaljsanje dovoljenja</title>
+</head>
+<body>
+
+<div class="permission-container">
+    <img src="https://www.gov.si/resources/themes/gov/images/svg/logo_sl_SI.svg" alt="Logo" class="logo">
+    <h1>Podaljsanje dovoljenja</h1>
+
+    <form method="post" id="permissionForm">
+        <label for="ime">Ime:</label><br>
+        <input type="text" id="ime" name="ime" value="" required><br><br>
+
+        <label for="priimek">Priimek:</label><br>
+        <input type="text" id="priimek" name="priimek" value="" required><br><br>
+
+        <label for="naziv">Naziv:</label><br>
+        <input type="text" id="naziv" name="naziv" value="" required><br><br>
+
+        <label for="naslov">Naslov:</label><br>
+        <input type="text" id="naslov" name="naslov" value="" required><br><br>
+
+        <label for="maticna">Maticna stevilka:</label><br>
+        <input type="text" id="maticna" name="maticna" value="" required><br><br>
+
+        <button type="button" class="button" onclick="clearValues()">Popravi</button><br>
+
+        <label for="razlog">Navedite razlog za potrebo podaljsanja:</label><br>
+        <textarea id="razlog" name="razlog" required></textarea><br><br>
+
+        <label for="stevilo">Stevilo mesecev podaljsanja:</label><br>
+        <input type="number" id="stevilo" name="stevilo" required><br><br>
+
+        <input type="checkbox" id="uvoz" name="uvoz">
+        <label for="uvoz">Uvoz</label><br>
+
+        <input type="checkbox" id="izvoz" name="izvoz">
+        <label for="izvoz">Izvoz</label><br><br>
+
+        <button type="submit" class="button" onclick="saveData()">Poslji</button>
+        <button onclick="window.location.href = 'Home.html';">Go to Home</button>
+ 
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var userData = localStorage.getItem('userData');
+            if (userData) {
+                userData = JSON.parse(userData);
+                document.getElementById('ime').value = userData.ime || "";
+                document.getElementById('priimek').value = userData.priimek || "";
+                document.getElementById('naziv').value = userData.naziv || "";
+                document.getElementById('naslov').value = userData.naslov || "";
+                document.getElementById('maticna').value = userData.maticna || "";
+            }
+        });
+
+        function clearValues() {
+            document.getElementById('ime').value = "";
+            document.getElementById('priimek').value = "";
+            document.getElementById('naziv').value = "";
+            document.getElementById('naslov').value = "";
+            document.getElementById('maticna').value = "";
+        }
+
+        function saveData() {
+            var userEmail = localStorage.getItem('userEmail');
+            if (userEmail) {
+                var allForms = JSON.parse(localStorage.getItem('allForms')) || [];
+
+                var podaljsanjeData = {
+                    ime: document.getElementById('ime').value,
+                    priimek: document.getElementById('priimek').value,
+                    naziv: document.getElementById('naziv').value,
+                    naslov: document.getElementById('naslov').value,
+                    maticna: document.getElementById('maticna').value,
+                    razlog: document.getElementById('razlog').value,
+                    stevilo: document.getElementById('stevilo').value,
+                    uvoz: document.getElementById('uvoz').checked,
+                    izvoz: document.getElementById('izvoz').checked,
+                    submittedBy: userEmail, 
+                    status: 'pending',
+                };
+
+                allForms.push(podaljsanjeData);
+
+                localStorage.setItem('allForms', JSON.stringify(allForms));
+                alert('Form submitted successfully.');
+
+
+            } else {
+                alert('User email not found. Please log in.');
+            }
+            window.location.href = "Home.html";
+
+        }
+
+
+    </script>
+</div>
+
+</body>
+</html>

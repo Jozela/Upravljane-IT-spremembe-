@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prikaz vseh obrazcev</title>
+</head>
+<body>
+
+    <h1>Prikaz vseh obrazcev</h1>
+
+    <ul id="formList">
+        <!-- Tu bodo prikazani vsi obrazci -->
+    </ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Retrieve all forms from local storage
+            var allForms = JSON.parse(localStorage.getItem('allForms')) || [];
+
+            // Display all forms on the page
+            var formList = document.getElementById('formList');
+            allForms.forEach(function (formData, index) {
+                var listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <strong>Form ${index + 1}</strong><br>
+                    Ime: ${formData.ime}<br>
+                    Priimek: ${formData.priimek}<br>
+                    Naziv: ${formData.naziv}<br>
+                    Naslov: ${formData.naslov}<br>
+                    Maticna stevilka: ${formData.maticna}<br>
+                    Razlog: ${formData.razlog}<br>
+                    Stevilo mesecev: ${formData.stevilo}<br>
+                    Uvoz: ${formData.uvoz ? 'Da' : 'Ne'}<br>
+                    Izvoz: ${formData.izvoz ? 'Da' : 'Ne'}<br>
+                    Status: ${formData.status || 'Pending'}<br>
+                    <button onclick="acceptForm(${index})">Accept</button>
+                    <button onclick="denyForm(${index})">Deny</button><br><br>
+                `;
+                formList.appendChild(listItem);
+            });
+        });
+
+        function acceptForm(index) {
+            updateFormStatus(index, 'Accepted');
+        }
+
+        function denyForm(index) {
+            updateFormStatus(index, 'Denied');
+        }
+
+        function updateFormStatus(index, status) {
+            var allForms = JSON.parse(localStorage.getItem('allForms')) || [];
+
+            allForms[index].status = status;
+
+            localStorage.setItem('allForms', JSON.stringify(allForms));
+
+            location.reload();
+        }
+    </script>
+</body>
+</html>
